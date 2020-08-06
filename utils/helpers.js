@@ -1,6 +1,7 @@
 import React from 'react'
-import { Notifications, Permissions } from 'expo'
 import {View,StyleSheet , AsyncStorage} from 'react-native'
+import { Notifications } from 'expo'
+import * as Permissions from 'expo-permissions'
 
 const NOTIFICATION_KEY = 'UdaciFitness:notifications'
 
