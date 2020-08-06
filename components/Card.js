@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
     BtnText : {
      color: white,
     fontSize: 30,
-    textAlign: "center"
+    textAlign: "center",
+        height : (Platform.OS === 'ios') ? 35 : null
   },
   correctBtn :{
   	backgroundColor: pink,

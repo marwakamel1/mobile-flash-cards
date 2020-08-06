@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View ,  TouchableOpacity , TextInput , KeyboardAvoidingView} from 'react-native';
+import { StyleSheet, Text, View ,  TouchableOpacity , TextInput , KeyboardAvoidingView , Platform} from 'react-native';
 import { pink , white } from '../utils/colors'
 import { addCardToDeck } from '../utils/api'
 import {connect} from 'react-redux'
@@ -27,9 +27,9 @@ import {addCard} from '../actions'
 	render (){
 		 const {question,answer} = this.state
 		return (
-               	<KeyboardAvoidingView behavior="margin" style={styles.container}>
+               	<KeyboardAvoidingView behavior={(Platform.OS === 'ios')? "padding" : "margin"} style={styles.container}>
 			    <Text style={styles.label}>
-			     Question : 
+			     Question
 			    </Text>
 			    <View style={{flexDirection : 'row' }}>
                 <TextInput
@@ -39,7 +39,7 @@ import {addCard} from '../actions'
                 />
                 </View>
                 <Text style={styles.label}>
-			     Answer : 
+			     Answer
 			    </Text>
 			     <View style={{flexDirection : 'row' }}>
                 <TextInput
@@ -72,7 +72,8 @@ const styles = StyleSheet.create ({
   BtnText : {
      color: white,
     fontSize: 20,
-    textAlign: "center"
+    textAlign: "center",
+       height : (Platform.OS === 'ios') ? 30 : null
   },
   Btn :{
   	backgroundColor: pink,

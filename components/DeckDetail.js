@@ -8,32 +8,34 @@ import {DeleteDeck} from '../utils/api'
 import {connect} from 'react-redux'
 
  class DeckDetail extends React.Component {
-
+  shouldComponentUpdate (nextProps){
+    
+    return nextProps.deck !== undefined
+  }
 	delete =() => {
-	  const {item} = this.props.navigation.state.params
-      this.props.dispatch(deleteDeck(item))
-      DeleteDeck(item)
+	  const {deck} = this.props
+      this.props.dispatch(deleteDeck(deck.title))
+      DeleteDeck(deck.title)
       this.props.navigation.goBack()
 	}
 	render (){
-		 const {item} = this.props.navigation.state.params
-		 const {decks} = this.props
+		 const {deck} = this.props
 		return (
                 <View style={styles.container}> 
                  <Text style={styles.header}>
-                   {item}
+                   {deck.title}
                  </Text>
                  <Text style={{fontSize : 20 , color : gray}}>
-                   {decks[item].questions.length}  cards
+                   {deck.questions.length}  cards
                  </Text>
                  <TouchableOpacity 
                   style={styles.addCardBtn}
-                 onPress={() => this.props.navigation.navigate('AddCard',{item : item})}> 
-	      	         <Text style={styles.BtnText}>Add Card</Text>
+                 onPress={() => this.props.navigation.navigate('AddCard',{item : deck.title})}> 
+	      	         <Text style={[styles.BtnText,{color : white}]} >Add Card</Text>
 	             </TouchableOpacity>
 	             <TouchableOpacity 
                    style={styles.quizBtn}
-	             onPress={() => this.props.navigation.navigate('Quiz',{item : item})}> 
+	             onPress={() => this.props.navigation.navigate('Quiz',{item : deck.title})}> 
 	      	         <Text style={styles.BtnText}>Start Quiz</Text>
 	             </TouchableOpacity>
 	             <TouchableOpacity onPress={this.delete}>
@@ -43,8 +45,8 @@ import {connect} from 'react-redux'
 			)
 	}
 }
-function mapStateToProps(decks) {
-  return {decks}
+function mapStateToProps(decks, {navigation}) {
+  return {deck : decks[navigation.state.params.item]}
 }
 export default connect(mapStateToProps)(DeckDetail)
 
@@ -54,18 +56,20 @@ const styles = StyleSheet.create({
 		alignItems : 'center' , 
 		justifyContent : 'center' , 
 		margin : 10 ,
+
 	},
     header :{
     	width : 350 ,
     	fontSize : 50 ,
     	padding : 5 ,
     	marginBottom : 10 ,
-    	textAlign : 'center'
+    	textAlign : 'center',
     },
     BtnText : {
-     color: white,
+    color: white,
     fontSize: 30,
-    textAlign: "center"
+    textAlign: "center",
+        height : (Platform.OS === 'ios') ? 35 : null
   },
   addCardBtn :{
   	backgroundColor: pink,

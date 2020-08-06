@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View ,  TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View ,  TouchableOpacity , ScrollView } from 'react-native';
 import {connect} from 'react-redux'
 import { pink , white , gray} from '../utils/colors'
 import Card from './Card'
@@ -43,6 +43,7 @@ class Quiz extends React.Component {
 		 }
 		    return (
                 <View style={styles.container}>
+                 <ScrollView>
                  {index  < this.props.questions.length  &&
                  	(<Text  style ={{alignSelf : 'flex-start', fontSize : 20 , color : gray}}>
                   {index + 1}/{this.props.questions.length}
@@ -65,7 +66,8 @@ class Quiz extends React.Component {
 							    <Text style={styles.BtnText}>Back to Deck</Text>
 							</TouchableOpacity>
                   	    </View>
-                  )}           
+                  )}    
+                  </ScrollView>       
                 </View>
 			)
 	}
@@ -93,7 +95,8 @@ const styles = StyleSheet.create({
 	BtnText : {
      color: white,
     fontSize: 30,
-    textAlign: "center"
+    textAlign: "center",
+        height : (Platform.OS === 'ios') ? 35 : null
   },
   correctBtn :{
   	backgroundColor: pink,

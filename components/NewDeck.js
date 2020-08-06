@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View , TextInput ,TouchableOpacity , KeyboardAvoidingView} from 'react-native';
+import { StyleSheet, Text, View , TextInput ,TouchableOpacity , KeyboardAvoidingView ,Platform} from 'react-native';
 import { pink , white } from '../utils/colors'
 import { saveDeckTitle } from '../utils/api'
 import {connect} from 'react-redux'
@@ -25,9 +25,9 @@ class NewDeck extends React.Component {
 	render (){
 
 		return(
-			<KeyboardAvoidingView behavior="margin" style={styles.container}>
+			<KeyboardAvoidingView behavior={(Platform.OS === 'ios')? "padding" : "margin"} style={styles.container}>
 			    <Text style={styles.label}>
-			     Deck Title : 
+			     Deck Title
 			    </Text>
 			    <View style={{flexDirection : 'row' }}>
                 <TextInput
@@ -60,7 +60,8 @@ const styles = StyleSheet.create ({
   BtnText : {
      color: white,
     fontSize: 20,
-    textAlign: "center"
+    textAlign: "center",
+     height : (Platform.OS === 'ios') ? 25 : null
   },
   Btn :{
   	backgroundColor: pink,
@@ -69,7 +70,7 @@ const styles = StyleSheet.create ({
     alignItems: "center",
     justifyContent: "center",
     marginTop : 25 ,
-    padding :30
+    padding :35
   },
   input : {
   	 flex :1,
